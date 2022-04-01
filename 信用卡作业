@@ -1,0 +1,80 @@
+using System;
+namespace SimpleEvent
+{
+
+
+
+    public class Bank
+    {
+
+
+
+
+        public delegate void publisher();
+        public event publisher publish_it;
+        public void pulish()
+        {
+            Console.WriteLine("发布还款");
+            publish_it(); /*  触发 */
+
+        }
+
+
+        public Bank()
+        {
+
+            Console.WriteLine("银行创建");
+        }
+    }
+
+
+    public class user
+    {
+        private string name;
+
+        public class card
+        {
+            public int limit = 10000;/*上限*/
+            public int used=0;
+
+
+        }
+
+        public class honest_card
+        {
+            private int deposit;/*存款*/
+        }
+
+
+        public user(string name)
+        {
+            this.name = name;
+            user.card a = card();
+        }
+        public void get_it()
+        {
+            Console.WriteLine(this.name + "用户进行还款操作");
+            
+
+            
+
+        }
+    }
+
+    public class MainClass
+    {
+        public static void Main()
+        {
+            Bank e = new Bank();
+
+            user v = new user("user-1");
+            user m = new user("user-2");
+            e.publish_it += new Bank.publisher(m.get_it); /* 注册 */
+            e.publish_it += new Bank.publisher(v.get_it);
+
+
+            e.pulish();
+
+        }
+    }
+}
